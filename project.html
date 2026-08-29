@@ -5,7 +5,580 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f7f7f5">
   <title>Project | Parker Cole</title>
-  <link rel="stylesheet" href="css/styles.css">
+  <style>
+:root {
+  --bg: #f7f7f5;
+  --surface: #ffffff;
+  --surface-2: #f0f0ed;
+  --text: #161616;
+  --muted: #686868;
+  --line: #d9d9d4;
+  --accent: #e85d04;
+  --accent-dark: #b94700;
+  --max: 1180px;
+  --shadow: 0 16px 45px rgba(0, 0, 0, 0.07);
+  --radius: 22px;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+body.menu-open { overflow: hidden; }
+a { color: inherit; }
+img { max-width: 100%; display: block; }
+button, input, textarea { font: inherit; }
+
+.skip-link {
+  position: absolute;
+  left: 12px;
+  top: -60px;
+  z-index: 1000;
+  background: var(--text);
+  color: #fff;
+  padding: 10px 14px;
+  border-radius: 10px;
+}
+.skip-link:focus { top: 12px; }
+
+.container {
+  width: min(calc(100% - 40px), var(--max));
+  margin: 0 auto;
+}
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  background: rgba(247, 247, 245, 0.92);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(217, 217, 212, 0.75);
+}
+.nav-wrap {
+  min-height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 800;
+  text-decoration: none;
+  letter-spacing: -0.02em;
+}
+.brand-mark {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  background: var(--text);
+  color: #fff;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+}
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+.nav-links a {
+  text-decoration: none;
+  color: var(--muted);
+  font-size: 0.94rem;
+  font-weight: 650;
+}
+.nav-links a:hover, .nav-links a:focus-visible { color: var(--text); }
+.nav-links .nav-cta {
+  color: #fff;
+  background: var(--text);
+  padding: 10px 15px;
+  border-radius: 999px;
+}
+
+.project-nav {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.project-nav a {
+  text-decoration: none;
+  color: var(--muted);
+  font-size: 0.94rem;
+  font-weight: 650;
+}
+.project-nav .nav-cta {
+  color: #fff;
+  background: var(--text);
+  padding: 10px 15px;
+  border-radius: 999px;
+}
+.menu-button {
+  display: none;
+  width: 44px;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+  color: var(--text);
+}
+.menu-icon, .menu-icon::before, .menu-icon::after {
+  width: 19px;
+  height: 2px;
+  background: currentColor;
+  border-radius: 999px;
+  display: block;
+  transition: 180ms ease;
+}
+.menu-icon { position: relative; }
+.menu-icon::before, .menu-icon::after { content: ""; position: absolute; left: 0; }
+.menu-icon::before { top: -6px; }
+.menu-icon::after { top: 6px; }
+.menu-button[aria-expanded="true"] .menu-icon { background: transparent; }
+.menu-button[aria-expanded="true"] .menu-icon::before { top: 0; transform: rotate(45deg); }
+.menu-button[aria-expanded="true"] .menu-icon::after { top: 0; transform: rotate(-45deg); }
+
+.hero {
+  padding: clamp(76px, 10vw, 132px) 0 72px;
+}
+.hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(300px, 0.65fr);
+  gap: clamp(48px, 7vw, 96px);
+  align-items: end;
+}
+.eyebrow {
+  margin: 0 0 18px;
+  color: var(--accent-dark);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+.hero h1 {
+  margin: 0;
+  max-width: 820px;
+  font-size: clamp(3.1rem, 8vw, 7.3rem);
+  line-height: 0.94;
+  letter-spacing: -0.065em;
+}
+.hero-lede {
+  max-width: 760px;
+  margin: 30px 0 0;
+  font-size: clamp(1.18rem, 2vw, 1.5rem);
+  color: #424242;
+  line-height: 1.5;
+}
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 34px;
+}
+.btn {
+  min-height: 46px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  border-radius: 999px;
+  padding: 0 18px;
+  text-decoration: none;
+  font-weight: 750;
+  font-size: 0.94rem;
+  border: 1px solid var(--text);
+}
+.btn-primary { background: var(--text); color: #fff; }
+.btn-secondary { background: transparent; color: var(--text); }
+.btn:hover { transform: translateY(-1px); }
+.hero-panel {
+  border-left: 1px solid var(--line);
+  padding-left: 34px;
+  display: grid;
+  gap: 28px;
+}
+.hero-stat span {
+  display: block;
+  color: var(--muted);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 750;
+  margin-bottom: 5px;
+}
+.hero-stat strong {
+  font-size: 1.05rem;
+  line-height: 1.35;
+}
+.status-line {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.status-dot {
+  width: 9px;
+  height: 9px;
+  margin-top: 7px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 5px rgba(232,93,4,0.12);
+}
+
+.section { padding: 88px 0; }
+.section-tight { padding: 58px 0; }
+.section-head {
+  display: grid;
+  grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr);
+  gap: 40px;
+  align-items: start;
+  margin-bottom: 40px;
+}
+.section-kicker {
+  margin: 0;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.section-title {
+  margin: 0;
+  font-size: clamp(2.1rem, 5vw, 4.1rem);
+  line-height: 1.02;
+  letter-spacing: -0.05em;
+}
+.section-copy {
+  color: var(--muted);
+  max-width: 720px;
+  font-size: 1.05rem;
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 22px;
+}
+.project-card {
+  grid-column: span 6;
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  min-height: 510px;
+  text-decoration: none;
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+}
+.project-card:first-child { grid-column: span 7; }
+.project-card:nth-child(2) { grid-column: span 5; }
+.project-card:nth-child(3) { grid-column: span 12; min-height: 390px; }
+.project-card:hover, .project-card:focus-visible {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow);
+  border-color: #bdbdb8;
+  outline: none;
+}
+.project-visual {
+  min-height: 220px;
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(120deg, rgba(255,255,255,0.86), rgba(238,238,234,0.9)),
+    repeating-linear-gradient(0deg, transparent 0 30px, rgba(0,0,0,0.055) 30px 31px),
+    repeating-linear-gradient(90deg, transparent 0 30px, rgba(0,0,0,0.055) 30px 31px);
+  border-bottom: 1px solid var(--line);
+}
+.project-visual::before {
+  content: "";
+  position: absolute;
+  width: 52%;
+  aspect-ratio: 1;
+  right: -8%;
+  top: -28%;
+  border: 1px solid rgba(22,22,22,0.2);
+  border-radius: 50%;
+}
+.project-visual::after {
+  content: "";
+  position: absolute;
+  width: 30%;
+  aspect-ratio: 1;
+  right: 8%;
+  top: 12%;
+  border: 1px solid rgba(22,22,22,0.2);
+  transform: rotate(45deg);
+}
+.visual-code {
+  position: absolute;
+  left: 24px;
+  bottom: 24px;
+  z-index: 2;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: #454545;
+}
+.visual-mark {
+  position: absolute;
+  right: 22px;
+  bottom: 7px;
+  z-index: 2;
+  font-size: clamp(3.8rem, 8vw, 7rem);
+  line-height: 1;
+  font-weight: 850;
+  letter-spacing: -0.07em;
+  color: rgba(22,22,22,0.07);
+}
+.project-body { padding: 28px; display: flex; flex-direction: column; flex: 1; }
+.project-body .eyebrow { margin-bottom: 10px; }
+.project-body h3 {
+  margin: 0 0 14px;
+  font-size: clamp(1.6rem, 3vw, 2.35rem);
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+}
+.project-body p { margin: 0; color: var(--muted); }
+.tag-row { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 24px; }
+.tag {
+  padding: 6px 9px;
+  border-radius: 999px;
+  background: var(--surface-2);
+  color: #4c4c4c;
+  font-size: 0.76rem;
+  font-weight: 700;
+}
+.project-link {
+  margin-top: auto;
+  padding-top: 28px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 800;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: clamp(40px, 7vw, 88px);
+}
+.about-text {
+  margin: 0;
+  font-size: clamp(1.4rem, 3vw, 2.15rem);
+  line-height: 1.45;
+  letter-spacing: -0.025em;
+}
+.education-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 28px;
+}
+.education-card h3 { margin: 0 0 6px; font-size: 1.35rem; }
+.education-card p { margin: 5px 0; color: var(--muted); }
+.education-card .education-department { margin-top: 0; font-size: 0.9rem; font-weight: 650; color: var(--text); }
+.education-meta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: 12px;
+  margin-top: 24px;
+}
+.meta-box {
+  background: var(--surface-2);
+  border-radius: 14px;
+  padding: 15px;
+}
+.meta-box span { display:block; color: var(--muted); font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 750; }
+.meta-box strong { display:block; margin-top: 3px; font-size: 0.98rem; }
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 15px;
+}
+.skill-group {
+  border-top: 2px solid var(--text);
+  padding-top: 18px;
+}
+.skill-group h3 { margin: 0 0 14px; font-size: 1rem; }
+.skill-group ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; color: var(--muted); }
+
+.timeline { border-top: 1px solid var(--line); }
+.timeline-item {
+  display: grid;
+  grid-template-columns: 1.1fr 1.1fr 0.8fr;
+  gap: 28px;
+  padding: 28px 0;
+  border-bottom: 1px solid var(--line);
+}
+.timeline-item h3 { margin: 0; font-size: 1.08rem; }
+.timeline-item p { margin: 4px 0 0; color: var(--muted); }
+.timeline-date { text-align: right; color: var(--muted); font-weight: 650; }
+
+.contact-panel {
+  background: var(--text);
+  color: #fff;
+  border-radius: 28px;
+  padding: clamp(30px, 6vw, 68px);
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
+  gap: 48px;
+  align-items: end;
+}
+.contact-panel .section-kicker { color: #bcbcbc; }
+.contact-panel h2 {
+  margin: 10px 0 0;
+  max-width: 720px;
+  font-size: clamp(2.4rem, 6vw, 5.1rem);
+  line-height: 0.98;
+  letter-spacing: -0.055em;
+}
+.contact-links { display: grid; gap: 12px; }
+.contact-links a {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  align-items: center;
+  padding: 14px 0;
+  border-bottom: 1px solid #3d3d3d;
+  text-decoration: none;
+  color: #efefef;
+}
+.contact-links a:hover, .contact-links a:focus-visible { color: #fff; border-color: #8b8b8b; }
+.contact-links span:last-child { color: #999; }
+
+.site-footer { padding: 28px 0 42px; }
+.footer-row { display: flex; justify-content: space-between; gap: 20px; color: var(--muted); font-size: 0.85rem; }
+
+/* Project detail */
+.project-hero { padding: 74px 0 56px; }
+.back-link { display: inline-flex; gap: 8px; align-items: center; text-decoration: none; font-weight: 750; margin-bottom: 44px; }
+.project-hero h1 {
+  margin: 0;
+  max-width: 980px;
+  font-size: clamp(2.8rem, 7vw, 6.2rem);
+  line-height: 0.98;
+  letter-spacing: -0.06em;
+}
+.project-summary {
+  max-width: 800px;
+  margin: 24px 0 0;
+  color: var(--muted);
+  font-size: clamp(1.08rem, 2vw, 1.35rem);
+}
+.project-detail-visual {
+  margin-top: 48px;
+  min-height: 370px;
+  border-radius: 28px;
+  border: 1px solid var(--line);
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(120deg, rgba(255,255,255,0.84), rgba(235,235,230,0.96)),
+    repeating-linear-gradient(0deg, transparent 0 42px, rgba(0,0,0,0.052) 42px 43px),
+    repeating-linear-gradient(90deg, transparent 0 42px, rgba(0,0,0,0.052) 42px 43px);
+}
+.project-detail-visual .visual-mark { font-size: clamp(8rem, 24vw, 18rem); right: 2%; bottom: -4%; }
+.project-detail-visual .visual-code { left: 34px; bottom: 30px; }
+.detail-grid {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.4fr) minmax(0, 1fr);
+  gap: clamp(36px, 8vw, 110px);
+  padding: 62px 0;
+  border-top: 1px solid var(--line);
+}
+.detail-label { font-size: 0.77rem; font-weight: 800; color: var(--muted); letter-spacing: 0.11em; text-transform: uppercase; }
+.detail-content { max-width: 800px; font-size: 1.08rem; }
+.detail-content p { margin-top: 0; }
+.detail-list { margin: 0; padding-left: 1.2rem; display: grid; gap: 13px; }
+.disclosure {
+  border-left: 3px solid var(--accent);
+  padding: 2px 0 2px 18px;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+.next-project {
+  display: block;
+  padding: 40px 0 72px;
+  text-decoration: none;
+  border-top: 1px solid var(--line);
+}
+.next-project span { color: var(--muted); font-size: 0.78rem; font-weight: 750; text-transform: uppercase; letter-spacing: 0.1em; }
+.next-project strong { display: block; margin-top: 8px; font-size: clamp(1.8rem, 4vw, 3.5rem); letter-spacing: -0.045em; }
+
+@media (max-width: 900px) {
+  .hero-grid, .section-head, .about-grid, .contact-panel { grid-template-columns: 1fr; }
+  .hero-panel { border-left: 0; border-top: 1px solid var(--line); padding-left: 0; padding-top: 28px; grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .project-card, .project-card:first-child, .project-card:nth-child(2), .project-card:nth-child(3) { grid-column: span 12; min-height: 0; }
+  .skills-grid { grid-template-columns: repeat(2, minmax(0,1fr)); gap: 28px 18px; }
+  .timeline-item { grid-template-columns: 1fr 1fr; }
+  .timeline-item .timeline-date { grid-column: 2; grid-row: 1; }
+  .timeline-item > div:nth-child(2) { grid-column: 1 / -1; }
+  .detail-grid { grid-template-columns: 1fr; gap: 16px; }
+}
+
+@media (max-width: 700px) {
+
+  .project-nav { gap: 12px; }
+  .project-nav a { font-size: 0.88rem; }
+  .project-nav a:nth-child(2) { display: none; }
+  .project-nav .nav-cta { padding: 8px 12px; }
+  .container { width: min(calc(100% - 28px), var(--max)); }
+  .menu-button { display: inline-flex; }
+  .nav-links {
+    display: none;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 72px;
+    padding: 22px 20px 28px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+    flex-direction: column;
+    align-items: stretch;
+    gap: 4px;
+  }
+  .nav-links.open { display: flex; }
+  .nav-links a { min-height: 46px; display: flex; align-items: center; padding: 0 8px; font-size: 1rem; }
+  .nav-links .nav-cta { justify-content: center; margin-top: 10px; }
+  .hero { padding-top: 62px; }
+  .hero h1 { font-size: clamp(3.15rem, 16vw, 5rem); }
+  .hero-panel { grid-template-columns: 1fr; gap: 20px; }
+  .section { padding: 68px 0; }
+  .project-visual { min-height: 185px; }
+  .project-body { padding: 22px; }
+  .skills-grid { grid-template-columns: 1fr; }
+  .education-meta { grid-template-columns: 1fr; }
+  .timeline-item { grid-template-columns: 1fr; gap: 8px; }
+  .timeline-item .timeline-date { grid-column: 1; grid-row: auto; text-align: left; }
+  .timeline-item > div:nth-child(2) { grid-column: 1; }
+  .contact-panel { padding: 28px 22px; gap: 34px; border-radius: 22px; }
+  .contact-links a { align-items: flex-start; flex-direction: column; gap: 2px; }
+  .footer-row { flex-direction: column; }
+  .project-detail-visual { min-height: 250px; border-radius: 22px; }
+  .project-detail-visual .visual-code { left: 22px; bottom: 22px; }
+  .project-hero { padding-top: 48px; }
+  .back-link { margin-bottom: 30px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+}
+
+</style>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -18,7 +591,7 @@
       <nav class="project-nav" aria-label="Project navigation">
         <a href="index.html#work">All work</a>
         <a href="index.html#contact">Contact</a>
-        <a class="nav-cta" href="assets/resume/Parker_Cole_Resume.pdf" target="_blank" rel="noopener" data-resume>Resume</a>
+        <a class="nav-cta" href="Parker_Cole_Resume.pdf" target="_blank" rel="noopener" data-resume>Resume</a>
       </nav>
     </div>
   </header>
@@ -76,14 +649,209 @@
             <a href="mailto:pacole06@icloud.com" data-email>pacole06@icloud.com <span>↗</span></a>
             <a href="tel:+19408082777" data-phone>(940) 808-2777 <span>↗</span></a>
             <a href="https://www.linkedin.com/in/parker-cole-engineering" target="_blank" rel="noopener" data-linkedin>LinkedIn <span>↗</span></a>
-            <a href="assets/resume/Parker_Cole_Resume.pdf" target="_blank" rel="noopener" data-resume>Resume <span>↗</span></a>
+            <a href="Parker_Cole_Resume.pdf" target="_blank" rel="noopener" data-resume>Resume <span>↗</span></a>
           </div>
         </div>
       </div>
     </section>
   </main>
 
-  <script src="js/content.js"></script>
-  <script src="js/project.js"></script>
+  <script>
+/*
+  PARKER COLE PORTFOLIO - EDIT THIS FILE FIRST
+  -------------------------------------------------
+  Almost all text shown on the website lives here.
+  You can safely edit the values between quotes without touching the layout.
+
+  IMPORTANT: Do not publish confidential or proprietary employer information.
+*/
+
+window.PORTFOLIO_DATA = {
+  person: {
+    name: "Parker Cole",
+    title: "Mechanical and Aerospace Engineering Student",
+    discipline: "Mechanical & Aerospace Engineering",
+    department: "School of Mechanical and Aerospace Engineering",
+    school: "Oklahoma State University",
+    location: "Stillwater, Oklahoma",
+    graduation: "Expected May 2028",
+    gpa: "4.00 / 4.00",
+    minor: "Mathematics",
+    phoneDisplay: "(940) 808-2777",
+    phoneLink: "+19408082777",
+    email: "pacole06@icloud.com",
+    linkedin: "https://www.linkedin.com/in/parker-cole-engineering",
+    resumePdf: "Parker_Cole_Resume.pdf",
+    resumeDocx: "Parker_Cole_Resume.docx",
+    intro: "Mechanical and aerospace engineering student focused on design, advanced manufacturing, CAD, and hands-on prototyping.",
+    about: "I am a mechanical and aerospace engineering student at Oklahoma State University with experience in advanced manufacturing engineering, CAD, rapid prototyping, and hands-on design. I enjoy taking an idea from an initial concept through modeling, fabrication, testing, and iteration, with particular interests in product design, manufacturing, and golf club development.",
+    availability: "Seeking Summer 2027 engineering internship opportunities"
+  },
+
+  skills: [
+    { category: "CAD", items: ["SolidWorks (CSWA)", "Creo Parametric"] },
+    { category: "Manufacturing", items: ["Design for Assembly (DFA)", "Design for Manufacturability (DFM)", "Additive Manufacturing", "Rapid Prototyping", "Manual Lathe & Mill"] },
+    { category: "Programming", items: ["Python"] },
+    { category: "Engineering Workflow", items: ["3D Modeling", "Technical Presentations", "Engineering Drawing Review", "Microsoft Office Suite"] }
+  ],
+
+  selectedProjects: [
+    {
+      id: "putter-design",
+      eyebrow: "PERSONAL ENGINEERING PROJECT",
+      title: "Custom Golf Putter Design & Prototyping",
+      shortTitle: "Custom Golf Putter",
+      summary: "Iterative product-development project using SolidWorks, additive manufacturing, modular design, and physical prototyping.",
+      tags: ["SolidWorks", "Product Design", "3D Printing", "DFA / DFM"],
+      coverCode: "CAD / PROTOTYPE",
+      coverMark: "01",
+      overview: "This ongoing personal project explores the design and prototyping of a custom mallet-style golf putter. I have developed multiple iterations in SolidWorks and used physical prototypes to evaluate geometry, mass distribution, assembly strategy, and manufacturability.",
+      challenge: "Create a putter design that can be rapidly modified and physically evaluated while maintaining a practical, repeatable assembly approach.",
+      approach: [
+        "Created and iterated multiple mallet putter concepts in SolidWorks.",
+        "Evaluated head geometry, mass distribution, assembly, and manufacturability during design iterations.",
+        "Developed a modular screw-on face concept to make component changes and testing easier.",
+        "Fabricated physical prototypes using additive manufacturing and molded components.",
+        "Applied DFA/DFM principles when selecting fastening methods, heat-set inserts, and printable geometries."
+      ],
+      outcome: "The project has produced multiple functional prototypes and a repeatable design process that makes it easier to test new geometry, face concepts, and manufacturing approaches.",
+      note: "This is an ongoing personal engineering project; the design continues to evolve through iterative prototyping and testing.",
+      media: []
+    },
+    {
+      id: "peterbilt-ai-tool",
+      eyebrow: "PETERBILT MOTORS COMPANY",
+      title: "AI-Assisted Engineering Drawing Tool",
+      shortTitle: "Engineering Drawing Tool",
+      summary: "Developed an AI-assisted workflow that reduced a repetitive part-drawing information task from about five minutes to about one minute per drawing.",
+      tags: ["Manufacturing Engineering", "AI Workflow", "Engineering Drawings", "Process Improvement"],
+      coverCode: "DRAWINGS / WORKFLOW",
+      coverMark: "02",
+      overview: "During my Summer 2026 Advanced Manufacturing Engineering internship at Peterbilt Motors Company, I developed an AI-assisted tool to help locate information in engineering part drawings more efficiently.",
+      challenge: "Reviewing engineering drawings for specific information could be repetitive and time consuming. The goal was to make that task faster while keeping the engineer in control of the review process.",
+      approach: [
+        "Identified a repetitive engineering drawing information-retrieval task that could benefit from a faster workflow.",
+        "Developed an AI-assisted tool focused on locating requested information within part drawings.",
+        "Iterated on the workflow with engineering use in mind rather than treating AI as a stand-alone replacement for technical review.",
+        "Communicated project progress through the internship's recurring presentation process."
+      ],
+      outcome: "The workflow reduced the task from approximately five minutes to approximately one minute per drawing - an 80% reduction in task time.",
+      note: "This case study intentionally contains only non-confidential, high-level information appropriate for a public portfolio.",
+      media: []
+    },
+    {
+      id: "peterbilt-ame",
+      eyebrow: "SUMMER 2026 INTERNSHIP",
+      title: "Advanced Manufacturing Engineering at Peterbilt",
+      shortTitle: "Peterbilt AME Experience",
+      summary: "Supported Chassis Powertrain and Cab & Outer Body engineering groups while building practical Creo, project-management, and technical-communication experience.",
+      tags: ["Creo", "Advanced Manufacturing", "Cross-Functional Work", "Technical Communication"],
+      coverCode: "MFG / ENGINEERING",
+      coverMark: "03",
+      overview: "As an Advanced Manufacturing Engineering Intern at Peterbilt Motors Company in Denton, Texas, I supported the Chassis Powertrain and Cab & Outer Body groups across multiple engineering assignments.",
+      challenge: "Contribute effectively across multiple concurrent manufacturing-engineering assignments while learning a new CAD environment and communicating progress to engineers and leadership.",
+      approach: [
+        "Supported the Chassis Powertrain and Cab & Outer Body groups on multiple advanced manufacturing engineering assignments.",
+        "Used Creo to create and modify 3D models in a production manufacturing environment.",
+        "Worked with engineers across different areas of the plant and balanced multiple projects at the same time.",
+        "Presented work weekly and delivered a final presentation to Peterbilt leadership.",
+        "Completed Design for Assembly training and expanded proficiency with engineering productivity tools."
+      ],
+      outcome: "The internship strengthened my practical CAD, manufacturing, project-management, cross-functional communication, and presentation skills in a large production environment.",
+      note: "Specific employer project details and visuals will only be added when they are confirmed appropriate for public release.",
+      media: []
+    }
+  ],
+
+  experience: [
+    {
+      role: "Advanced Manufacturing Engineering Intern",
+      company: "Peterbilt Motors Company",
+      location: "Denton, TX",
+      dates: "May 2026 - Aug 2026",
+      detail: "Supported Chassis Powertrain and Cab & Outer Body engineering groups; used Creo, managed concurrent assignments, developed an AI-assisted engineering-drawing workflow, and presented work to engineering leadership."
+    },
+    {
+      role: "Founder & President",
+      company: "Cowboy Golf Club - Oklahoma State University",
+      location: "Stillwater, OK",
+      dates: "Aug 2026 - Present",
+      detail: "Founded and lead a student golf organization, managing club structure, membership, dues, events, and competitive-group participation."
+    },
+    {
+      role: "Member",
+      company: "Cowboy Rocketworks",
+      location: "Oklahoma State University",
+      dates: "Feb 2025 - Present",
+      detail: "Member of Oklahoma State University's student rocketry organization."
+    }
+  ],
+
+  education: {
+    school: "Oklahoma State University",
+    department: "School of Mechanical and Aerospace Engineering",
+    degree: "Bachelor of Science, Mechanical Engineering",
+    minor: "Minor in Mathematics",
+    graduation: "Expected May 2028",
+    gpa: "4.00 / 4.00",
+    honors: ["President's List", "Oklahoma State University Honors"]
+  }
+};
+
+</script>
+  <script>
+(function () {
+  "use strict";
+  const data = window.PORTFOLIO_DATA;
+  if (!data) return;
+
+  const $ = (selector, scope = document) => scope.querySelector(selector);
+  const escapeHtml = (value) => String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+
+  const id = new URLSearchParams(window.location.search).get("id");
+  const project = data.selectedProjects.find(item => item.id === id) || data.selectedProjects[0];
+  const currentIndex = data.selectedProjects.findIndex(item => item.id === project.id);
+  const next = data.selectedProjects[(currentIndex + 1) % data.selectedProjects.length];
+
+  document.title = `${project.title} | ${data.person.name}`;
+  $("[data-project-eyebrow]").textContent = project.eyebrow;
+  $("[data-project-title]").textContent = project.title;
+  $("[data-project-summary]").textContent = project.summary;
+  $("[data-project-code]").textContent = project.coverCode;
+  $("[data-project-mark]").textContent = project.coverMark;
+  $("[data-overview]").textContent = project.overview;
+  $("[data-challenge]").textContent = project.challenge;
+  $("[data-outcome]").textContent = project.outcome;
+  $("[data-note]").textContent = project.note;
+  $("[data-tags]").innerHTML = project.tags.map(tag => `<span class="tag">${escapeHtml(tag)}</span>`).join("");
+  $("[data-approach]").innerHTML = project.approach.map(item => `<li>${escapeHtml(item)}</li>`).join("");
+  $("[data-next]").href = `project.html?id=${encodeURIComponent(next.id)}`;
+  $("[data-next-title]").textContent = next.title;
+
+  const linkedin = $("[data-linkedin]");
+  if (linkedin) linkedin.href = data.person.linkedin;
+
+  const email = $("[data-email]");
+  if (email) {
+    email.href = `mailto:${data.person.email}`;
+    email.innerHTML = `${escapeHtml(data.person.email)} <span aria-hidden="true">↗</span>`;
+  }
+
+  const phone = $("[data-phone]");
+  if (phone) {
+    phone.href = `tel:${data.person.phoneLink}`;
+    phone.innerHTML = `${escapeHtml(data.person.phoneDisplay)} <span aria-hidden="true">↗</span>`;
+  }
+
+  const resume = $("[data-resume]");
+  if (resume) resume.href = data.person.resumePdf;
+})();
+
+</script>
 </body>
 </html>

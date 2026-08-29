@@ -1,0 +1,30 @@
+PARKER COLE PORTFOLIO — GITHUB PAGES FIXED BUILD
+
+WHY THIS BUILD EXISTS
+The prior live page showed unstyled HTML and blank dynamic fields. That means GitHub was loading index.html, but the separate css/styles.css and js/*.js files were not being loaded from the published site.
+
+This corrected build removes that failure point:
+- CSS is embedded directly inside index.html and project.html.
+- Portfolio data and JavaScript are embedded directly inside both pages.
+- Resume files are placed at the repository root.
+- There are no css/ or js/ folders required for the site to render.
+
+UPLOAD THESE FILES TO THE ROOT OF YOUR GITHUB REPOSITORY:
+  index.html
+  project.html
+  Parker_Cole_Resume.pdf
+  Parker_Cole_Resume.docx
+  .nojekyll
+
+Do NOT upload the enclosing folder itself. When looking at your GitHub repository, index.html should be visible immediately on the main repository page.
+
+AFTER UPLOADING
+1. Commit the files to the branch GitHub Pages is publishing (normally main).
+2. Go to Settings > Pages and confirm source is main / (root).
+3. Wait a few minutes for the deployment to finish.
+4. Hard-refresh the live site:
+   Windows: Ctrl+F5 or Ctrl+Shift+R
+   Mac: Command+Shift+R
+5. Test the site in a private/incognito window and on your phone.
+
+If the old unstyled version still appears, open the repository and verify the live branch contains this new index.html. GitHub Pages may take several minutes to redeploy after a commit.
