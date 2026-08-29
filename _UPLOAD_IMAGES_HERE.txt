@@ -1,0 +1,10 @@
+UPLOAD YOUR PORTFOLIO IMAGES INTO THIS FOLDER.
+
+Recommended:
+- JPG or WebP for photos/renders
+- PNG for screenshots with text/UI
+- Keep most images under 2 MB
+- Use simple lowercase names with hyphens, e.g. putter-prototype-01.jpg
+
+After uploading an image, use this path in the portfolio editor:
+images/putter-prototype-01.jpg
