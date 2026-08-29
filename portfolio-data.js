@@ -27,7 +27,7 @@ window.PORTFOLIO_DATA = {
     linkedin: "https://www.linkedin.com/in/parker-cole-engineering",
     resumePdf: "Parker_Cole_Resume.pdf",
     resumeDocx: "Parker_Cole_Resume.docx",
-    intro: "Mechanical and aerospace engineering student focused on design, advanced manufacturing, CAD, and hands-on prototyping.",
+    intro: "Mechanical and Aerospace Engineering student focused on design, advanced manufacturing, CAD, and hands-on prototyping.",
     about: "I am a mechanical and aerospace engineering student at Oklahoma State University with experience in advanced manufacturing engineering, CAD, rapid prototyping, and hands-on design. I enjoy taking an idea from an initial concept through modeling, fabrication, testing, and iteration, with particular interests in product design, manufacturing, and golf club development.",
     availability: "Seeking Summer 2027 engineering internship opportunities"
   },
