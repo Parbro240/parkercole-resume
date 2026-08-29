@@ -49,7 +49,7 @@ window.PORTFOLIO_DATA = {
       tags: ["SolidWorks", "Product Design", "3D Printing", "DFA / DFM"],
       coverCode: "CAD / PROTOTYPE",
       coverMark: "01",
-      coverImage: "",
+      coverImage: "images/Screenshot 2026-07-13 175851.png",
       coverImageAlt: "",
       overview: "This ongoing personal project explores the design and prototyping of a custom mallet-style golf putter. I have developed multiple iterations in SolidWorks and used physical prototypes to evaluate geometry, mass distribution, assembly strategy, and manufacturability.",
       challenge: "Create a putter design that can be rapidly modified and physically evaluated while maintaining a practical, repeatable assembly approach.",
