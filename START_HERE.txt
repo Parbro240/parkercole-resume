@@ -1,9 +1,0 @@
-PARKER COLE ENGINEERING PORTFOLIO
-
-1. Open index.html to preview the website.
-2. To edit your information, including your Mechanical & Aerospace Engineering description, open js/content.js in a text editor.
-3. Read README_EDITING.md for detailed instructions.
-4. Replace the resume files in assets/resume/ when your resume changes.
-5. Add only public-safe project photos/CAD images to assets/images/.
-
-The site is responsive for desktop, tablet, and phone screens and does not require a database or website builder.
